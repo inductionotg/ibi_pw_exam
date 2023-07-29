@@ -1,0 +1,66 @@
+callbackHell
+----------
+
+function asyncFunc1(callback) {
+  setTimeout(() => {
+    console.log("Async Function 1");
+    callback();
+  }, 1000);
+}
+
+function asyncFunc2(callback) {
+  setTimeout(() => {
+    console.log("Async Function 2");
+    callback();
+  }, 1500);
+}
+
+// Callback Hell
+asyncFunc1(() => {
+  asyncFunc2(() => {
+      console.log("All functions executed.");
+  });
+});
+
+Using Promise we can fix callbackhell
+-------------------------------
+function asyncFunc1() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Async Function 1");
+      resolve();
+    }, 1000);
+  });
+}
+
+function asyncFunc2() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("Async Function 2");
+      resolve();
+    }, 1500);
+  });
+}
+asyncFunc1()
+  .then(() => asyncFunc2())
+  .then(() => {
+    console.log("All functions executed.");
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+using async and await 
+-------------
+async function executeAsyncFunctions() {
+  try {
+    await asyncFunc1();
+    await asyncFunc2();
+    await asyncFunc3();
+    console.log("All functions executed.");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+executeAsyncFunctions();
