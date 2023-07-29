@@ -1,0 +1,17 @@
+function delayWithValue(name,delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(name);
+      resolve(name);
+    }, delay);
+  });
+}
+
+delayWithValue("ritesh",1000)
+.then((name)=>{
+	console.log("values",name)
+	return name
+})
+.then (()=>{
+	console.log("promise chaining is finished")	
+})
